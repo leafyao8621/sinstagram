@@ -7,7 +7,7 @@ BIN = test
 	$(CC) -pedantic -Wall -Wextra -Werror -g -c $< -o $@
 
 $(BIN): $(OBJ)
-	$(CC) $(OBJ) -o $(BIN)
+	$(CC) $(OBJ) -o $(BIN) -lm
 
 .PHONY: clean
 clean:

@@ -19,5 +19,6 @@ int simulator_initialize(struct Simulator *simulator,
                          time_t start_time,
                          unsigned seed,
                          const char *dir);
+int simulator_run(struct Simulator *simulator, unsigned iter, char verbose);
 
 #endif

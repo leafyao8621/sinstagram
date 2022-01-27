@@ -2,6 +2,7 @@
 #define _EVENTS_H_
 
 #include <stdio.h>
+#include <time.h>
 
 #include "../util/generator.h"
 #include "../model/model.h"
@@ -83,7 +84,8 @@ struct Event {
 
 int event_generate(struct Event *event,
                    struct Model *model,
-                   struct MT19937 *gen);
+                   struct MT19937 *gen,
+                   time_t timestamp);
 int event_handle(struct Event *event,
                  struct Model *model,
                  FILE *fout);
