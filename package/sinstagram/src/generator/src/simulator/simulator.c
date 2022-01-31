@@ -20,9 +20,17 @@ int simulator_run(struct Simulator *simulator, unsigned iter, char verbose) {
     }
     char buf_path[1000];
     FILE *fout = 0;
+    char cond = 0;
     for (unsigned i = 0; i < iter; ++i) {
+        model_check_condition(&simulator->model, &cond);
+        if (cond) {
+            break;
+        }
         if (verbose) {
-            printf("iter %u\n", i);
+            printf("iter %u %u %u\n",
+                   i,
+                   simulator->model.cnt_user,
+                   simulator->model.cnt_active_user);
         }
         if (!(i % 100)) {
             if (fout) {
@@ -34,10 +42,13 @@ int simulator_run(struct Simulator *simulator, unsigned iter, char verbose) {
         unsigned offset = 0;
         generator_generate_offset(&simulator->gen, &offset);
         simulator->time_now += offset;
-        event_generate(&simulator->event,
-                       &simulator->model,
-                       &simulator->gen,
-                       simulator->time_now);
+        int ret = event_generate(&simulator->event,
+                                 &simulator->model,
+                                 &simulator->gen,
+                                 simulator->time_now);
+        if (ret == 2) {
+            break;
+        }
         event_handle(&simulator->event, &simulator->model, fout);
     }
     if (fout) {

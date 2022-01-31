@@ -40,7 +40,6 @@ struct Event {
             char gender;
             char education_level;
             char dob[100];
-            char created[100];
         } update_user;
         struct {
             unsigned user_id;

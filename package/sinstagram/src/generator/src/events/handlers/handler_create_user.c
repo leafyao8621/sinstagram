@@ -4,12 +4,13 @@ int handle_create_user(struct Event *event, struct Model *model, FILE *fout) {
     if (!event || !model || !fout) {
         return 1;
     }
-    if (model->cnt_user == 10000) {
+    if (model->cnt_user >= 10000) {
         return 2;
     }
     ++model->cnt_user;
+    ++model->cnt_active_user;
     *(model->users_end++) = 1;
-    fprintf(fout, "%u,\"%s\",%hhd,%hhd,%hhd,\"%s\",\"%s\"\n",
+    fprintf(fout, "\"%u\",\"%s\",%hhd,%hhd,%hhd,\"%s\",\"%s\"\n",
             event->type,
             event->data.create_user.name,
             event->data.create_user.sex,

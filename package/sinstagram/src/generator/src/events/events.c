@@ -13,8 +13,26 @@ int event_generate(struct Event *event,
     struct tm *info;
     info = gmtime(&timestamp);
     strftime(buf, 99, "%Y-%m-%dT%H:%M:%SZ", info);
-    puts(buf);
-    initializers[(unsigned long)event->type](event, model, gen, buf);
+    generator_generate_event_type(gen, &event->type);
+    int ret = initializers[(unsigned long)event->type](event, model, gen, buf);
+    if (ret == 2) {
+        switch (event->type) {
+        case EVENT_CREATE_USER:
+            event->type = EVENT_UPDATE_USER;
+            ret = initializers[EVENT_UPDATE_USER](event, model, gen, buf);
+            if (ret == 2) {
+                return 2;
+            }
+            break;
+        case EVENT_REMOVE_USER:
+            event->type = EVENT_CREATE_USER;
+            ret = initializers[EVENT_CREATE_USER](event, model, gen, buf);
+            if (ret == 2) {
+                return 2;
+            }
+            break;
+        }
+    }
     return 0;
 }
 

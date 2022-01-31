@@ -41,3 +41,43 @@ int generator_generate_dob(struct MT19937 *gen, char *out) {
     strftime(out, 99, "%Y-%m-%d", info);
     return 0;
 }
+
+int generator_generate_enum(struct MT19937 *gen, char ub, char *out) {
+    if (!gen || !out) {
+        return 1;
+    }
+    *out = mt19937_gen(gen) % (ub + 1);
+    return 0;
+}
+
+int generator_generate_idx(struct MT19937 *gen, unsigned ub, unsigned *out) {
+    if (!gen || !out) {
+        return 1;
+    }
+    *out = mt19937_gen(gen) % ub;
+    return 0;
+}
+
+int generator_generate_event_type(struct MT19937 *gen, char *out) {
+    static double cdf[11] = {
+        0.89,
+        0.9,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    };
+    if (!gen || !out) {
+        return 1;
+    }
+    double u = mt19937_gen(gen) / (double)0xffffffff;
+    double *iter = cdf;
+    *out = 0;
+    for (; *iter < u; ++(*out), ++iter);
+    return 0;
+}
