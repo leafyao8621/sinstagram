@@ -11,6 +11,6 @@ int handle_remove_user(struct Event *event, struct Model *model, FILE *fout) {
     --(model->cnt_active_user);
     fprintf(fout, "\"%u\",\"%u\"\n",
             event->type,
-            event->data.remove_user.id);
+            event->data.remove_user.id + 1);
     return 0;
 }
