@@ -2,6 +2,7 @@
 #include "initializer_create_user.h"
 #include "initializer_remove_user.h"
 #include "initializer_update_user.h"
+#include "initializer_create_post.h"
 
 int (*initializers[11])(struct Event *event,
                         struct Model *model,
@@ -10,7 +11,7 @@ int (*initializers[11])(struct Event *event,
     initialize_create_user,
     initialize_remove_user,
     initialize_update_user,
-    0,
+    initialize_create_post,
     0,
     0,
     0,

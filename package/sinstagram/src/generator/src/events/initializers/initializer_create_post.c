@@ -21,14 +21,13 @@ int initialize_create_post(struct Event *event,
     generator_generate_string(gen,
                               event->data.create_post.textual_content,
                               1000);
-    int ub = 0;
+    unsigned ub = 0;
     generator_generate_idx(gen, 5, &ub);
-    char **iter = event->data.create_post.url;
-    for (int i = 0; i < 5; ++i, ++iter) {
+    for (unsigned i = 0; i < 5; ++i) {
         if (i <= ub) {
-            generator_generate_string(gen, *iter, 1000);
+            generator_generate_string(gen, event->data.create_post.url[i], 1000);
         } else {
-            **iter = 0;
+            *event->data.create_post.url[i] = 0;
         }
     }
     strcpy(event->data.create_post.time_posted, timestamp);
