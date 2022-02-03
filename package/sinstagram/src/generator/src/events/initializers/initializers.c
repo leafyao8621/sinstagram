@@ -3,6 +3,8 @@
 #include "initializer_remove_user.h"
 #include "initializer_update_user.h"
 #include "initializer_create_post.h"
+#include "initializer_like_post.h"
+#include "initializer_unlike_post.h"
 
 int (*initializers[11])(struct Event *event,
                         struct Model *model,
@@ -17,6 +19,6 @@ int (*initializers[11])(struct Event *event,
     0,
     0,
     0,
-    0,
-    0
+    initialize_like_post,
+    initialize_unlike_post
 };

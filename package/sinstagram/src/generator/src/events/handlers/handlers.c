@@ -3,6 +3,8 @@
 #include "handler_remove_user.h"
 #include "handler_update_user.h"
 #include "handler_create_post.h"
+#include "handler_like_post.h"
+#include "handler_unlike_post.h"
 
 int (*handlers[11])(struct Event *event,
                     struct Model *model,
@@ -16,6 +18,6 @@ int (*handlers[11])(struct Event *event,
     0,
     0,
     0,
-    0,
-    0
+    handle_like_post,
+    handle_unlike_post
 };

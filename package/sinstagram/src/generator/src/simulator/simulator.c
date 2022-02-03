@@ -27,13 +27,13 @@ int simulator_run(struct Simulator *simulator, unsigned iter, char verbose) {
             break;
         }
         if (verbose) {
-            printf("iter %u\nuser: %u\nactive_user: %u\n"
-                   "post: %u\nactive_post: %u\n",
+            printf("iter %u %u %u %u %u %u\n",
                    i,
                    simulator->model.cnt_user,
                    simulator->model.cnt_active_user,
                    simulator->model.cnt_posts,
-                   simulator->model.cnt_active_posts);
+                   simulator->model.cnt_active_posts,
+                   simulator->model.cnt_likes);
         }
         if (!(i % 100)) {
             if (fout) {
