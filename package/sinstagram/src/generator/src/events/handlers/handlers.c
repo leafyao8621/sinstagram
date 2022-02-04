@@ -5,6 +5,8 @@
 #include "handler_create_post.h"
 #include "handler_like_post.h"
 #include "handler_unlike_post.h"
+#include "handler_follow.h"
+#include "handler_unfollow.h"
 
 int (*handlers[11])(struct Event *event,
                     struct Model *model,
@@ -16,8 +18,8 @@ int (*handlers[11])(struct Event *event,
     0,
     0,
     0,
-    0,
-    0,
+    handle_follow,
+    handle_unfollow,
     handle_like_post,
     handle_unlike_post
 };

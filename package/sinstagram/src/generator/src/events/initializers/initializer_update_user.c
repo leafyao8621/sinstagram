@@ -7,6 +7,9 @@ int initialize_update_user(struct Event *event,
     if (!event || !model || !timestamp) {
         return 1;
     }
+    if (!model->cnt_active_user) {
+        return 2;
+    }
     for (generator_generate_idx(gen,
                                 model->cnt_user,
                                 &event->data.update_user.id);

@@ -31,8 +31,33 @@ int event_generate(struct Event *event,
                 return 2;
             }
             break;
+        case EVENT_UPDATE_USER:
+            event->type = EVENT_CREATE_USER;
+            ret = initializers[EVENT_CREATE_USER](event, model, gen, buf);
+            if (ret == 2) {
+                return 2;
+            }
+            break;
         case EVENT_CREATE_POST:
             return 2;
+        case EVENT_FOLLOW:
+            event->type = EVENT_CREATE_USER;
+            ret = initializers[EVENT_CREATE_USER](event, model, gen, buf);
+            if (ret == 2) {
+                return 2;
+            }
+            break;
+        case EVENT_UNFOLLOW:
+            event->type = EVENT_FOLLOW;
+            ret = initializers[EVENT_FOLLOW](event, model, gen, buf);
+            if (ret == 2) {
+                event->type = EVENT_CREATE_USER;
+                ret = initializers[EVENT_CREATE_USER](event, model, gen, buf);
+                if (ret == 2) {
+                    return 2;
+                }
+            }
+            break;
         case EVENT_LIKE_POST:
             event->type = EVENT_CREATE_POST;
             ret = initializers[EVENT_CREATE_POST](event, model, gen, buf);

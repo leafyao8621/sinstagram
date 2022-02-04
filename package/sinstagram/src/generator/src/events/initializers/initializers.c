@@ -5,6 +5,8 @@
 #include "initializer_create_post.h"
 #include "initializer_like_post.h"
 #include "initializer_unlike_post.h"
+#include "initializer_follow.h"
+#include "initializer_unfollow.h"
 
 int (*initializers[11])(struct Event *event,
                         struct Model *model,
@@ -17,8 +19,8 @@ int (*initializers[11])(struct Event *event,
     0,
     0,
     0,
-    0,
-    0,
+    initialize_follow,
+    initialize_unfollow,
     initialize_like_post,
     initialize_unlike_post
 };
