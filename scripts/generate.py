@@ -6,4 +6,4 @@ if __name__ == "__main__":
                                   1000,
                                   "data",
                                   1000000,
-                                  verbose=False)
+                                  verbose=True)
