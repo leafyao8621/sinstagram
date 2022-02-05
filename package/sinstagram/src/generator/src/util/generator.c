@@ -60,12 +60,12 @@ int generator_generate_idx(struct MT19937 *gen, unsigned ub, unsigned *out) {
 
 int generator_generate_event_type(struct MT19937 *gen, char *out) {
     static double cdf[11] = {
-        0.59,
+        0.49,
+        0.5,
         0.6,
+        0.69,
         0.7,
-        0.8,
-        0.8,
-        0.8,
+        0.79,
         0.8,
         0.89,
         0.9,

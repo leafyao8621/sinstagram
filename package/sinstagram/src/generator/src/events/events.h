@@ -48,7 +48,7 @@ struct Event {
             char url[5][1000];
         } create_post;
         struct {
-            char id;
+            unsigned id;
         } remove_post;
         struct {
             unsigned post_id;
