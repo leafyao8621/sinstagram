@@ -1,4 +1,3 @@
 *.o
 test
 dump/*
-.vscode
