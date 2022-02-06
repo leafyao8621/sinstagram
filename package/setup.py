@@ -34,5 +34,7 @@ base = Extension('sinstagram.generator._base',
 
 setup(name="sinstagram",
       version="0.1",
-      packages=["sinstagram.generator"],
+      packages=["sinstagram",
+                "sinstagram.generator",
+                "sinstagram.loader"],
       ext_modules=[base])
