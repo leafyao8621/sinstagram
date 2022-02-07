@@ -13,9 +13,10 @@ int handle_create_comment(struct Event *event,
     ++(model->cnt_active_post_comments);
     *(model->post_comments_end++) = 1;
     fprintf(fout,
-            "\"%u\",\"%u\",\"%u\",\"%s\","
+            "\"%u\",\"%u\",\"%u\",\"%u\",\"%s\","
             "\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"\n",
             event->type,
+            model->cnt_post_comments,
             event->data.create_comment.post_id + 1,
             event->data.create_comment.user_id + 1,
             event->data.create_comment.textual_content,

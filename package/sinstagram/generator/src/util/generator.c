@@ -25,6 +25,13 @@ int generator_generate_string(struct MT19937 *gen, char *out, unsigned len) {
         } else if (*iter == '"') {
             ++i;
             *(++iter) = '"';
+        } else if (*iter == ',') {
+            if (iter[-1] == '"') {
+                for (*iter = mt19937_gen(gen) % 94 + 33;
+                     *iter == ',' ||
+                     *iter == '"';
+                     *iter = mt19937_gen(gen) % 94 + 33);
+            }
         }
     }
     *iter = 0;

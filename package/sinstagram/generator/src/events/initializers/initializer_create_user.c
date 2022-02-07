@@ -8,7 +8,7 @@ int initialize_create_user(struct Event *event,
     if (!event || !model || !timestamp) {
         return 1;
     }
-    if (model->cnt_user == 10000) {
+    if (model->cnt_user >= 10000) {
         return 2;
     }
     generator_generate_string(gen, event->data.create_user.name, 50);

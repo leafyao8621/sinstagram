@@ -69,6 +69,82 @@ class Connector:
                 fout
             )
             self.conn.commit()
+        with open("/tmp/.post_comments") as fout:
+            self.cur.copy_expert(\
+                '''
+                COPY
+                    post_comments(
+                        post_id,
+                        user_id,
+                        textual_content,
+                        time_commented
+                    )
+                FROM
+                    STDIN
+                (
+                    FORMAT CSV,
+                    NULL '\\N'
+                )
+                ''',
+                fout
+            )
+            self.conn.commit()
+        with open("/tmp/.post_comment_media") as fout:
+            self.cur.copy_expert(\
+                '''
+                COPY
+                    post_comment_media(
+                        post_comment_id,
+                        url
+                    )
+                FROM
+                    STDIN
+                (
+                    FORMAT CSV,
+                    NULL '\\N'
+                )
+                ''',
+                fout
+            )
+            self.conn.commit()
+        with open("/tmp/.followings") as fout:
+            self.cur.copy_expert(\
+                '''
+                COPY
+                    followings(
+                        from_id,
+                        to_id,
+                        time_initiated
+                    )
+                FROM
+                    STDIN
+                (
+                    FORMAT CSV,
+                    NULL '\\N'
+                )
+                ''',
+                fout
+            )
+            self.conn.commit()
+        with open("/tmp/.post_likes") as fout:
+            self.cur.copy_expert(\
+                '''
+                COPY
+                    post_likes(
+                        post_id,
+                        user_id,
+                        time_liked
+                    )
+                FROM
+                    STDIN
+                (
+                    FORMAT CSV,
+                    NULL '\\N'
+                )
+                ''',
+                fout
+            )
+            self.conn.commit()
     def close(self):
         if (self.cur):
             self.cur.close()

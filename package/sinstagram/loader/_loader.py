@@ -16,7 +16,14 @@ def load_dir(dir: str, verbose: bool=False):
                     data = line[1:-2].split("\",\"")
                     if (data[0] == "0"):
                         writer.write_users(*data[1:])
-                    if (data[0] == "3"):
+                    elif (data[0] == "3"):
                         writer.write_posts(*data[2:5])
                         writer.write_post_media(data[1], data[5:])
+                    elif (data[0] == "5"):
+                        writer.write_post_comments(*data[2:6])
+                        writer.write_post_comment_media(data[1], data[6:])
+                    elif (data[0] == "7"):
+                        writer.write_followings(*data[1:])
+                    elif (data[0] == "9"):
+                        writer.write_post_likes(*data[1:])
             connector.bulk_upload()
