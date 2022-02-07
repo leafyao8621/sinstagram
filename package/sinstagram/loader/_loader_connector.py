@@ -162,6 +162,11 @@ class Connector:
             )
             self.conn.commit()
     def remove_user(self, id: str):
+        """[summary]
+
+        Args:
+            id (str): [description]
+        """
         self.cur.execute("DELETE FROM users WHERE id = %s", vars=(id,))
         self.conn.commit()
     def update_user(self,
@@ -171,6 +176,16 @@ class Connector:
                     gender: str,
                     education_level: str,
                     dob: str):
+        """[summary]
+
+        Args:
+            id (str): [description]
+            user_name (str): [description]
+            sex (str): [description]
+            gender (str): [description]
+            education_level (str): [description]
+            dob (str): [description]
+        """
         self.cur.execute(\
             '''
             UPDATE
@@ -196,7 +211,59 @@ class Connector:
         self.conn.commit()
     def remove_post(self,
                     id: str):
+        """[summary]
+
+        Args:
+            id (str): [description]
+        """
         self.cur.execute("DELETE FROM posts WHERE id = %s", vars=(id,))
+        self.conn.commit()
+    def remove_post_comment(self,
+                            id: str):
+        """[summary]
+
+        Args:
+            id (str): [description]
+        """
+        self.cur.execute("DELETE FROM post_comments WHERE id = %s", vars=(id,))
+        self.conn.commit()
+    def unfollow(self,
+                 from_id: str,
+                 to_id: str):
+        """[summary]
+
+        Args:
+            from_id (str): [description]
+            to_id (str): [description]
+        """
+        self.cur.execute(\
+            '''
+            DELETE FROM
+                followings
+            WHERE
+                from_id = %s AND
+                to_id = %s
+            ''',
+            vars=(from_id, to_id))
+        self.conn.commit()
+    def unlike(self,
+               post_id: str,
+               user_id: str):
+        """[summary]
+
+        Args:
+            post_id (str): [description]
+            user_id (str): [description]
+        """
+        self.cur.execute(\
+            '''
+            DELETE FROM
+                post_likes
+            WHERE
+                post_id = %s AND
+                user_id = %s
+            ''',
+            vars=(post_id, user_id))
         self.conn.commit()
     def close(self):
         if (self.cur):

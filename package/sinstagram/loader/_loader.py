@@ -43,3 +43,9 @@ def load_dir(dir: str, verbose: bool=False):
                     connector.update_user(*i[1:])
                 elif (i[0] == "4"):
                     connector.remove_post(i[1])
+                elif (i[0] == "6"):
+                    connector.remove_post_comment(i[1])
+                elif (i[0] == "8"):
+                    connector.unfollow(*i[1:])
+                elif (i[0] == "10"):
+                    connector.unlike(*i[1:])
