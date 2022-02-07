@@ -1,8 +1,22 @@
+import typing
 import psycopg2
 from .._credentials import *
 
+def process(x: str) -> typing.Union[str, None]:
+    """[summary]
+
+    Args:
+        x (str): [description]
+
+    Returns:
+        typing.Union[str, None]: [description]
+    """
+    return x if int(x) else None
+
 class Connector:
     def __init__(self):
+        """[summary]
+        """
         self.conn = psycopg2.connect(user=user,
                                      password=password,
                                      host=host,
@@ -10,6 +24,8 @@ class Connector:
                                      options=options)
         self.cur = self.conn.cursor()
     def bulk_upload(self):
+        """[summary]
+        """
         with open("/tmp/.users", "r") as fout:
             self.cur.copy_expert(\
                 '''
@@ -145,6 +161,43 @@ class Connector:
                 fout
             )
             self.conn.commit()
+    def remove_user(self, id: str):
+        self.cur.execute("DELETE FROM users WHERE id = %s", vars=(id,))
+        self.conn.commit()
+    def update_user(self,
+                    id: str,
+                    user_name: str,
+                    sex: str,
+                    gender: str,
+                    education_level: str,
+                    dob: str):
+        self.cur.execute(\
+            '''
+            UPDATE
+                users
+            SET
+                user_name = %s,
+                sex = %s,
+                gender = %s,
+                education_level = %s,
+                dob = %s
+            WHERE
+                id = %s
+            ''',
+            (
+                user_name,
+                process(sex),
+                process(gender),
+                process(education_level),
+                dob,
+                id
+            )
+        )
+        self.conn.commit()
+    def remove_post(self,
+                    id: str):
+        self.cur.execute("DELETE FROM posts WHERE id = %s", vars=(id,))
+        self.conn.commit()
     def close(self):
         if (self.cur):
             self.cur.close()

@@ -18,7 +18,7 @@ int initialize_like_post(struct Event *event,
                                 model->cnt_posts,
                                 &event->data.like_post.post_id);
          !model->users[event->data.like_post.user_id] ||
-         !model->users[event->data.like_post.post_id] ||
+         !model->posts[event->data.like_post.post_id] ||
          model->post_likes[event->data.like_post.post_id * 10000 +
                            event->data.like_post.user_id];
          generator_generate_idx(gen,

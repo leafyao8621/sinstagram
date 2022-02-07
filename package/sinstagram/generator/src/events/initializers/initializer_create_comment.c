@@ -20,7 +20,7 @@ int initialize_create_comment(struct Event *event,
                                 model->cnt_posts,
                                 &event->data.create_comment.post_id);
          !model->users[event->data.create_comment.user_id] ||
-         !model->users[event->data.create_comment.post_id];
+         !model->posts[event->data.create_comment.post_id];
          generator_generate_idx(gen,
                                 model->cnt_user,
                                 &event->data.create_comment.user_id),
