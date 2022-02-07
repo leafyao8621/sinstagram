@@ -16,4 +16,7 @@ def load_dir(dir: str, verbose: bool=False):
                     data = line[1:-2].split("\",\"")
                     if (data[0] == "0"):
                         writer.write_users(*data[1:])
+                    if (data[0] == "3"):
+                        writer.write_posts(*data[2:5])
+                        writer.write_post_media(data[1], data[5:])
             connector.bulk_upload()

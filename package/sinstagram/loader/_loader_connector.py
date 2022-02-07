@@ -16,10 +16,48 @@ class Connector:
                 COPY
                     users(
                         user_name,
-                        sex, gender,
+                        sex,
+                        gender,
                         education_level,
                         dob,
                         created
+                    )
+                FROM
+                    STDIN
+                (
+                    FORMAT CSV,
+                    NULL '\\N'
+                )
+                ''',
+                fout
+            )
+            self.conn.commit()
+        with open("/tmp/.posts") as fout:
+            self.cur.copy_expert(\
+                '''
+                COPY
+                    posts(
+                        user_id,
+                        textual_content,
+                        time_posted
+                    )
+                FROM
+                    STDIN
+                (
+                    FORMAT CSV,
+                    NULL '\\N'
+                )
+                ''',
+                fout
+            )
+            self.conn.commit()
+        with open("/tmp/.post_media") as fout:
+            self.cur.copy_expert(\
+                '''
+                COPY
+                    post_media(
+                        post_id,
+                        url
                     )
                 FROM
                     STDIN

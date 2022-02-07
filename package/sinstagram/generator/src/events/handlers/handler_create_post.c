@@ -11,9 +11,10 @@ int handle_create_post(struct Event *event, struct Model *model, FILE *fout) {
     ++model->cnt_active_posts;
     *(model->posts_end++) = 1;
     fprintf(fout,
-            "\"%u\",\"%u\",\"%s\","
+            "\"%u\",\"%u\",\"%u\",\"%s\","
             "\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"\n",
             event->type,
+            model->cnt_posts,
             event->data.create_post.user_id + 1,
             event->data.create_post.textual_content,
             event->data.create_post.time_posted,
