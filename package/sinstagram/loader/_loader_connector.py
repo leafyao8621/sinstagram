@@ -9,6 +9,28 @@ class Connector:
                                      database=database,
                                      options=options)
         self.cur = self.conn.cursor()
+    def bulk_upload(self):
+        with open("/tmp/.users", "r") as fout:
+            self.cur.copy_expert(\
+                '''
+                COPY
+                    users(
+                        user_name,
+                        sex, gender,
+                        education_level,
+                        dob,
+                        created
+                    )
+                FROM
+                    STDIN
+                (
+                    FORMAT CSV,
+                    NULL '\\N'
+                )
+                ''',
+                fout
+            )
+            self.conn.commit()
     def close(self):
         if (self.cur):
             self.cur.close()

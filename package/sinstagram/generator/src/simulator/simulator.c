@@ -42,7 +42,7 @@ int simulator_run(struct Simulator *simulator, unsigned iter, char verbose) {
             if (fout) {
                 fclose(fout);
             }
-            sprintf(buf_path, "%s/%d.csv", simulator->dir, i / 100);
+            sprintf(buf_path, "%s/%08d.csv", simulator->dir, i / 100);
             fout = fopen(buf_path, "w");
         }
         unsigned offset = 0;

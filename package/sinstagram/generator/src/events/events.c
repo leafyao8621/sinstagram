@@ -12,7 +12,7 @@ int event_generate(struct Event *event,
     char buf[100];
     struct tm *info;
     info = gmtime(&timestamp);
-    strftime(buf, 99, "%Y-%m-%dT%H:%M:%SZ", info);
+    strftime(buf, 99, "%Y-%m-%d %H:%M:%S", info);
     generator_generate_event_type(gen, &event->type);
     int ret = initializers[(unsigned long)event->type](event, model, gen, buf);
     if (ret == 2) {

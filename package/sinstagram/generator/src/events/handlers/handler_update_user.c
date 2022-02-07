@@ -7,7 +7,7 @@ int handle_update_user(struct Event *event, struct Model *model, FILE *fout) {
     if (!model->cnt_active_user) {
         return 2;
     }
-    fprintf(fout, "\"%u\",\"%u\",\"%s\",%hhd,%hhd,%hhd,\"%s\"\n",
+    fprintf(fout, "\"%u\",\"%u\",\"%s\",\"%hhd\",\"%hhd\",\"%hhd\",\"%s\"\n",
             event->type,
             event->data.update_user.id + 1,
             event->data.update_user.name,

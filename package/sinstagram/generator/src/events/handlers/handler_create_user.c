@@ -10,7 +10,7 @@ int handle_create_user(struct Event *event, struct Model *model, FILE *fout) {
     ++model->cnt_user;
     ++model->cnt_active_user;
     *(model->users_end++) = 1;
-    fprintf(fout, "\"%u\",\"%s\",%hhd,%hhd,%hhd,\"%s\",\"%s\"\n",
+    fprintf(fout, "\"%u\",\"%s\",\"%hhd\",\"%hhd\",\"%hhd\",\"%s\",\"%s\"\n",
             event->type,
             event->data.create_user.name,
             event->data.create_user.sex,
