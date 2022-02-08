@@ -38,5 +38,6 @@ setup(name="sinstagram",
                 "sinstagram.generator",
                 "sinstagram.loader",
                 "sinstagram.analyzer",
-                "sinstagram.analyzer.user_demographics"],
+                "sinstagram.analyzer.user_demographics",
+                "sinstagram.analyzer.post_stats"],
       ext_modules=[base])
