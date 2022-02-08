@@ -36,5 +36,7 @@ setup(name="sinstagram",
       version="0.1",
       packages=["sinstagram",
                 "sinstagram.generator",
-                "sinstagram.loader"],
+                "sinstagram.loader",
+                "sinstagram.analyzer",
+                "sinstagram.analyzer.user_demographics"],
       ext_modules=[base])
