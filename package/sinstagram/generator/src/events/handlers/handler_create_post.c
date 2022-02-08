@@ -7,8 +7,8 @@ int handle_create_post(struct Event *event, struct Model *model, FILE *fout) {
     if (model->cnt_posts >= 1000000) {
         return 2;
     }
-    ++model->cnt_posts;
-    ++model->cnt_active_posts;
+    ++(model->cnt_posts);
+    ++(model->cnt_active_posts);
     *(model->posts_end++) = 1;
     fprintf(fout,
             "\"%u\",\"%u\",\"%u\",\"%s\","

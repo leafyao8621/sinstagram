@@ -20,12 +20,12 @@ int initialize_create_post(struct Event *event,
                                 &event->data.create_post.user_id));
     generator_generate_string(gen,
                               event->data.create_post.textual_content,
-                              1000);
+                              900);
     unsigned ub = 0;
     generator_generate_idx(gen, 5, &ub);
     for (unsigned i = 0; i < 5; ++i) {
         if (i <= ub) {
-            generator_generate_string(gen, event->data.create_post.url[i], 1000);
+            generator_generate_string(gen, event->data.create_post.url[i], 900);
         } else {
             *event->data.create_post.url[i] = 0;
         }

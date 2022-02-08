@@ -29,14 +29,14 @@ int initialize_create_comment(struct Event *event,
                                 &event->data.create_comment.post_id));
     generator_generate_string(gen,
                               event->data.create_comment.textual_content,
-                              1000);
+                              900);
     unsigned ub = 0;
     generator_generate_idx(gen, 5, &ub);
     for (unsigned i = 0; i < 5; ++i) {
         if (i <= ub) {
             generator_generate_string(gen,
                                       event->data.create_comment.url[i],
-                                      1000);
+                                      900);
         } else {
             *event->data.create_comment.url[i] = 0;
         }

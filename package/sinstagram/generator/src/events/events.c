@@ -170,7 +170,10 @@ int event_generate(struct Event *event,
                 ret = initializers[EVENT_CREATE_POST](event, model, gen, buf);
                 if (ret == 2) {
                     event->type = EVENT_CREATE_USER;
-                    ret = initializers[EVENT_CREATE_USER](event, model, gen, buf);
+                    ret = initializers[EVENT_CREATE_USER](event,
+                                                          model,
+                                                          gen,
+                                                          buf);
                     if (ret == 2) {
                         return 2;
                     }

@@ -27,9 +27,10 @@ int simulator_run(struct Simulator *simulator, unsigned iter, char verbose) {
             break;
         }
         if (verbose) {
-            printf("iter %u u %u au %u p %u ap %u l %u f %u c %u ac %u\n",
+            printf("iter %u u %u %u au %u p %u ap %u l %u f %u c %u ac %u\n",
                    i,
                    simulator->model.cnt_user,
+                   simulator->model.users_end - simulator->model.users,
                    simulator->model.cnt_active_user,
                    simulator->model.cnt_posts,
                    simulator->model.cnt_active_posts,
@@ -55,7 +56,10 @@ int simulator_run(struct Simulator *simulator, unsigned iter, char verbose) {
         if (ret == 2) {
             break;
         }
-        event_handle(&simulator->event, &simulator->model, fout);
+        ret = event_handle(&simulator->event, &simulator->model, fout);
+        if (ret) {
+            break;
+        }
     }
     if (fout) {
         fclose(fout);
