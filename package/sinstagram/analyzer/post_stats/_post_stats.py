@@ -118,3 +118,61 @@ def by_hour(display: bool=True, fn: typing.Union[str, None]=None):
                       file=fout)
         if (fout):
             fout.close()
+
+def daily_active(display: bool=True, fn: typing.Union[str, None]=None):
+    """[summary]
+
+    Args:
+        display (bool, optional): [description]. Defaults to True.
+        fn (typing.Union[str, None], optional): [description]. Defaults to None.
+    """
+    with ConnectorManager() as connector:
+        connector.execute(\
+            '''
+            SELECT
+                day_posted,
+                COUNT(*)
+            FROM
+                (SELECT DISTINCT
+                    user_id,
+                    MAKE_DATE(
+                        DATE_PART('year', time_posted) :: int,
+                        DATE_PART('month', time_posted) :: int,
+                        DATE_PART('day', time_posted) :: int
+                    ) day_posted
+                FROM
+                    posts) A
+            GROUP BY
+                day_posted
+            ORDER BY
+                day_posted
+            '''
+        )
+        fout = None
+        if (fn):
+            fout = open(fn, "w")
+        if (display):
+            print("|", end="")
+        for i in connector.cur.description:
+            if (display):
+                print(f" {i[0]:10s} |", end="")
+        if (fout):
+            print(*(f"\"{i[0]}\"" for i in connector.cur.description),
+                  sep=",",
+                  file=fout)
+        if (display):
+            print("")
+        for i in connector.cur:
+            if (display):
+                print("| ", end="")
+                print(*(f"{j:10d}" if isinstance(j, int) else f"{str(j)}"
+                        for j in i),
+                      sep=" | ",
+                      end="")
+                print(" |")
+            if (fout):
+                print(*(f"\"{j}\"" for j in i),
+                      sep=",",
+                      file=fout)
+        if (fout):
+            fout.close()
